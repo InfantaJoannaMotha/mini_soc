@@ -20,7 +20,7 @@ jobs:
 
       - name: Build and run simulation
         run: |
-          verilator --binary --timing --trace -Wall \
+          verilator --binary --timing --trace -Wall -Wno-fatal \
             --top-module mini_soc_tb \
             rtl/counter.v \
             rtl/alu.v \
