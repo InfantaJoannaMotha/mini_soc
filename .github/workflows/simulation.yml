@@ -26,7 +26,7 @@ jobs:
             rtl/alu.v \
             rtl/mux.v \
             rtl/mini_soc.v \
-            tb/mini_soc_tb.v
+            rtl/tb/mini_soc_tb.v
           ./obj_dir/Vmini_soc_tb
 
       - name: Upload waveform
