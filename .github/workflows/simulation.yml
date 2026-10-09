@@ -1,0 +1,36 @@
+
+name: Mini-SoC Simulation
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  simulate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Verilator
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y verilator
+
+      - name: Build and run simulation
+        run: |
+          verilator --binary --timing --trace -Wall \
+            --top-module mini_soc_tb \
+            rtl/counter.v \
+            rtl/alu.v \
+            rtl/mux.v \
+            rtl/mini_soc.v \
+            tb/mini_soc_tb.v
+          ./obj_dir/Vmini_soc_tb
+
+      - name: Upload waveform
+        uses: actions/upload-artifact@v4
+        with:
+          name: mini-soc-waveform
+          path: dump.vcd
